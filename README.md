@@ -1,0 +1,1 @@
+The Resume Screener App is a machine learning-powered tool designed to automatically evaluate and rank resumes for a role. It helps recruiters quickly identify top candidates by analyzing resume content and matching it against job requirements.

@@ -1,0 +1,60 @@
+id: require-button-interaction
+language: Tsx
+files:
+  - src/**/*.tsx
+  - src/**/*.jsx
+rule:
+  kind: jsx_opening_element
+  all:
+    - has:
+        kind: identifier
+        regex: '^Button$'
+    - not:
+        has:
+          kind: jsx_attribute
+          has:
+            kind: property_identifier
+            regex: '^onClick$'
+    - not:
+        has:
+          kind: jsx_attribute
+          has:
+            kind: property_identifier
+            regex: '^asChild$'
+    - not:
+        has:
+          kind: jsx_attribute
+          all:
+            - has:
+                kind: property_identifier
+                regex: '^type$'
+            - any:
+                - has:
+                    kind: string
+                    regex: '^"(submit|reset)"$'
+                - has:
+                    kind: jsx_expression
+                    has:
+                      kind: string
+                      regex: '^"(submit|reset)"$'
+    - not:
+        inside:
+          stopBy: end
+          kind: jsx_element
+          has:
+            kind: jsx_opening_element
+            has:
+              kind: identifier
+              regex: 'Trigger$'
+    - not:
+        inside:
+          stopBy: end
+          kind: jsx_element
+          has:
+            kind: jsx_opening_element
+            has:
+              kind: identifier
+              regex: '^(Link|a)$'
+
+message: '<Button> 必须是可点击的,请确保其点击后的逻辑已编写\n请添加 onClick、type="submit"、type="reset"、asChild 属性，或将其包裹在 *Trigger 组件中，或 <Link> 或 <a> 中'
+severity: error
